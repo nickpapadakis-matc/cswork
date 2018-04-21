@@ -71,23 +71,24 @@ namespace TicTacToeAIGUI
                 MessageBox.Show("Please Select a open spot");
                 board.Count--;
             }
-            else
+            else if(board.IsPlaying() == 0)
             {
                 HumanPlaying(buttonText);
+             
+            }
+
                 ComputerPlaying(buttonText);
-                if (board.IsFull())
-                {
-                    MessageBox.Show("The Game resulted in a tie.");
-                    ResetBoard();
-                }
+            
+            
+            if (board.IsFull())
+            {
+                MessageBox.Show("The result of the game is tie!");
+                ResetBoard();
             }
         }
 
         public void HumanPlaying(Button b)
         {
-            if (board.IsPlaying() == 0)
-            {
-                board.Count++;
                 board.GameArray[userMove] = "X";
                 b.Text = board.GameArray[userMove];
                 x.MakeMove(board, userMove, x);
@@ -96,7 +97,7 @@ namespace TicTacToeAIGUI
                     MessageBox.Show("*Player X is the winner*");
                     ResetBoard();
                 }
-            }
+                board.Count++;
         }
 
         public void ComputerPlaying(Button b)
