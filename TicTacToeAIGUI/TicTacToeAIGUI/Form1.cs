@@ -29,7 +29,7 @@ namespace TicTacToeAIGUI
             Button buttonText = btnTLeft; //has to be assigned at start of method, will change in switch statement
             switch (buttonSender)
             {
-                case "btnLeft":
+                case "btnTLeft":
                     userMove = 0;
                     buttonText = btnTLeft;
                     break;
@@ -66,32 +66,28 @@ namespace TicTacToeAIGUI
                     buttonText = btnBRight;
                     break;
             }
-           
-            if (board.IsFull())
+            if (!board.ValidMove(userMove))
             {
-                MessageBox.Show("The Game resulted in a tie.");
-                ResetBoard();
+                MessageBox.Show("Please Select a open spot");
+                board.Count--;
             }
             else
             {
-                if (!board.ValidMove(userMove))
-                {
-                    MessageBox.Show("Please Select a open spot");
-                }
-
                 HumanPlaying(buttonText);
                 ComputerPlaying(buttonText);
+                if (board.IsFull())
+                {
+                    MessageBox.Show("The Game resulted in a tie.");
+                    ResetBoard();
+                }
             }
         }
 
         public void HumanPlaying(Button b)
         {
-            if (!board.ValidMove(userMove))
+            if (board.IsPlaying() == 0)
             {
-                MessageBox.Show("Please Select a open spot");
-            }
-            else if (board.IsPlaying() == 0)
-            {
+                board.Count++;
                 board.GameArray[userMove] = "X";
                 b.Text = board.GameArray[userMove];
                 x.MakeMove(board, userMove, x);
@@ -101,11 +97,11 @@ namespace TicTacToeAIGUI
                     ResetBoard();
                 }
             }
-            board.Count++;
         }
 
         public void ComputerPlaying(Button b)
         {
+          
             userMove = o.MakeMove(board, userMove, x);
             switch (userMove)
             {
@@ -137,14 +133,17 @@ namespace TicTacToeAIGUI
                     b = btnBRight;
                     break;
             }
+           
             board.GameArray[userMove] = "O";
             b.Text = board.GameArray[userMove];
             if (board.DetermineWin(x, o))
             {
                 MessageBox.Show("Player O is the winner!");
                 ResetBoard();
-            }
-            board.Count++;
+                board.Count--;
+            }           //i know this is weird, but its the only way i could get it to work
+                        //these forms apps are very touchy with counts
+                board.Count++;  
         }
 
         public void ResetBoard()
