@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using InfoDLL;
 
 namespace TicTacToeAIGUI
 {
@@ -21,10 +22,14 @@ namespace TicTacToeAIGUI
             InitializeComponent();
             ResetBoard();
         }
-
+        /// <summary>
+        /// called when any button is clicked, check which button it was and then checks if
+        /// the move is valid, if vaid sets the users move and then sets the computers move using 
+        /// the computerPlayers MakeMove method (check ComputerPlayer class for info on that)
+        /// then lastly checks for a tie game
+        /// </summary>
         private void btn_Click(object sender, EventArgs e)
         {
-            
             String buttonSender = ((Button)sender).Name;
             Button buttonText = btnTLeft; //has to be assigned at start of method, will change in switch statement
             switch (buttonSender)
@@ -66,20 +71,18 @@ namespace TicTacToeAIGUI
                     buttonText = btnBRight;
                     break;
             }
-            if (!board.ValidMove(userMove))
+            if(board.IsPlaying() == 0)
             {
-                MessageBox.Show("Please Select a open spot");
-                board.Count--;
+                if (!board.ValidMove(userMove))
+                {
+                    MessageBox.Show("Please Select a open spot");
+                }
+                else
+                {
+                    HumanPlaying(buttonText);
+                    ComputerPlaying(buttonText);
+                }
             }
-            else if(board.IsPlaying() == 0)
-            {
-                HumanPlaying(buttonText);
-             
-            }
-
-                ComputerPlaying(buttonText);
-            
-            
             if (board.IsFull())
             {
                 MessageBox.Show("The result of the game is tie!");
@@ -89,20 +92,19 @@ namespace TicTacToeAIGUI
 
         public void HumanPlaying(Button b)
         {
-                board.GameArray[userMove] = "X";
-                b.Text = board.GameArray[userMove];
-                x.MakeMove(board, userMove, x);
-                if (board.DetermineWin(x, o))
-                {
-                    MessageBox.Show("*Player X is the winner*");
-                    ResetBoard();
-                }
-                board.Count++;
+            board.GameArray[userMove] = "X";
+            b.Text = board.GameArray[userMove];
+            x.MakeMove(board, userMove, x);
+            if (board.DetermineWin(x, o))
+            {
+                MessageBox.Show("*Player X is the winner*");
+                ResetBoard();
+            }
+            board.Count++;
         }
 
         public void ComputerPlaying(Button b)
         {
-          
             userMove = o.MakeMove(board, userMove, x);
             switch (userMove)
             {
@@ -146,7 +148,9 @@ namespace TicTacToeAIGUI
                         //these forms apps are very touchy with counts
                 board.Count++;  
         }
-
+        /// <summary>
+        /// resets the board. Needed to do it in form1 class for the gui because of button text
+        /// </summary>
         public void ResetBoard()
         {
             for (int i = 0; i < board.GameArray.Length; i++)
@@ -169,6 +173,32 @@ namespace TicTacToeAIGUI
                 o.Pieces[i] = false;
             }
         }
-    }
-    
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetBoard();
+        }
+
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string assignment = "Tic-Tac-Toe-GUI-AI-Inheritance";
+            MessageBox.Show(Info.DisplayInfo(assignment));
+        }
+
+        private void directionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("\t\t*Tic-Tac-Toe*" +
+                "\nPlay as the Human Player x and try to get three x's in a row." +
+                "\nThe computer will be trying to block you and get three o's in a row" +
+                "\nFirst to get three of their letters in a row wins the game." +
+                "\nIf board is full before either win, the game results in a tie." +
+                "\nLoser starts the next round!" +
+                "\n\t\t*GoodLuck*");
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+    } 
 }

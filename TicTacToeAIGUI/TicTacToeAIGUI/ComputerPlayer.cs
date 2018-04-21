@@ -33,7 +33,7 @@ namespace TicTacToeAIGUI
             move = 0;
             int check = -1;
             int[] moveArray = new int[] { 4, 0, 2, 6, 8, 1, 3, 5, 7 };
-
+            //checking if computer can win on next turn
             if (check == -1)
             {
                 for (int i = 0; i < 8; i++)
@@ -59,6 +59,7 @@ namespace TicTacToeAIGUI
                     }
                 }
             }
+            //checking if human can win on next turn and blocking
             if (check == -1)
             {
                 for (int i = 0; i < 8; i++)
@@ -83,7 +84,7 @@ namespace TicTacToeAIGUI
                     }
                 }
             }
-
+            //if neither of the above we find the next open spot based on out moveArray list
             while (check == -1 && index < moveArray.Length)
             {
                 if (board.ValidMove(moveArray[index]))

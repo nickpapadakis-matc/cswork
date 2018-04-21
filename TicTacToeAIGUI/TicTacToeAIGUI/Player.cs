@@ -9,7 +9,8 @@ namespace TicTacToeAIGUI
 {
     public abstract class Player
     {/// <summary>
-     /// comments are in console version
+     /// abstract player class sets up the bit array and has an abstract MakeMove method
+     /// that both the ComputerPlayer and HumanPlayer classes must use.
      /// </summary>
         protected BitArray pieces;
         public BitArray Pieces { get { return pieces; } set { pieces = value; } }
