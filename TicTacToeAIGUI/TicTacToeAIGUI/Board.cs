@@ -81,7 +81,7 @@ namespace TicTacToeAIGUI
 
         public bool IsFull()
         {
-            if (count == 9)
+            if (count == 8)
             {
                 return true;
             }
