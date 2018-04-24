@@ -18,7 +18,7 @@ namespace TriviaGameApp
 
         }
 
-        public int ReadQuestionFile()
+        public void ReadQuestionFile()
         {
             try
             {
@@ -42,8 +42,7 @@ namespace TriviaGameApp
             {
                 Console.WriteLine("Something went terribly wrong" + e.Message);
                 
-            }
-            return NUMBER_OF_QUESTIONS;
+            }         
         }
 
         public string GetQuestion(int index)

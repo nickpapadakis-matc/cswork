@@ -12,8 +12,7 @@ namespace TriviaGameApp
         {
 
             Controller c = new Controller();
-            c.Play();
-            Console.ReadLine();
+            c.PlayGame();
 
         }
     }

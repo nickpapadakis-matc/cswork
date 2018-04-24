@@ -12,11 +12,28 @@ namespace TriviaGameApp
         {
 
         }
+
+        public void PlayGame()
+        {
+            bool playAgain = true;
+            do
+            {
+                Play();
+                Console.WriteLine("\n\t\tPress [Y] or type [Yes] to play again");
+                if (Console.ReadLine().ToUpper().Substring(0, 1) == "Y")
+                    playAgain = true;
+                else
+                    playAgain = false;
+
+            } while (playAgain);
+        }
+
         public void Play()
         {
             string userAnswer = "";
             Question_Bank qBank = new Question_Bank();
             qBank.ReadQuestionFile();
+            int count = 0;
             string asterick = "*********************************";
               for (int i = 0; i < 5; i++)
               {
@@ -33,6 +50,7 @@ namespace TriviaGameApp
                       Console.WriteLine("\t\t" + asterick);
                       Console.WriteLine("\n\t\tThat is correct!!!");
                       Console.WriteLine(qBank.Explination(i));
+                    count++;
                   }
                   else
                   {
@@ -42,16 +60,16 @@ namespace TriviaGameApp
                   if(i < 4)
                   {
                       Console.WriteLine("\n\t\tPress enter to go to the next question.");
-                      Console.WriteLine(asterick);
+                      Console.WriteLine("\t\t" + asterick);
                   }
                   else
                   {
+                      Console.WriteLine("\n\t\tYou got " + count + " correct!");
                       Console.WriteLine("\n\t\tThanks for playing!!!");
-                      Console.WriteLine(asterick);
+                      Console.WriteLine("\t\t" + asterick);
                   }
                   Console.ReadLine();
-              }
-         
+              }      
         }
     }
 }
