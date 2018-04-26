@@ -8,6 +8,9 @@ namespace TriviaGameApp
 {
     class Question_Unit
     {
+        /// <summary>
+        /// Class made to store read in file data and return it via instances of this class
+        /// </summary>
         string question;
         string[] answers = new string[4];
         string correctAnswer;

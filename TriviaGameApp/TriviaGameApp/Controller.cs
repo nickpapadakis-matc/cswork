@@ -12,12 +12,16 @@ namespace TriviaGameApp
         {
 
         }
-
+        /// <summary>
+        /// game loop to let user replay the quiz
+        /// </summary>
         public void PlayGame()
         {
             bool playAgain = true;
             do
             {
+                GameDirections();
+                Console.ReadLine();
                 Play();
                 Console.WriteLine("\n\t\tPress [Y] or type [Yes] to play again");
                 if (Console.ReadLine().ToUpper().Substring(0, 1) == "Y")
@@ -27,7 +31,10 @@ namespace TriviaGameApp
 
             } while (playAgain);
         }
-
+        /// <summary>
+        /// method that runs the quiz. Makes a QuestionBank object and calls its methods
+        /// to get question and answers using a for loop to determine what question/answer combo to get
+        /// </summary>
         public void Play()
         {
             string userAnswer = "";
@@ -38,7 +45,7 @@ namespace TriviaGameApp
               for (int i = 0; i < 5; i++)
               {
                   Console.Clear();
-                  Console.WriteLine("\t\t" + asterick);
+                  Console.WriteLine("\n\t\t" + asterick);
                   Console.WriteLine("\n\t\tQuestions " + (i + 1) + ": ");
                   Console.WriteLine("\t\t" + asterick);
                   Console.WriteLine(qBank.GetQuestion(i));
@@ -70,6 +77,19 @@ namespace TriviaGameApp
                   }
                   Console.ReadLine();
               }      
+        }
+        public void GameDirections()
+        {
+            string asterick = "*********************************";
+
+            Console.WriteLine("\n\tTRIVIA GAME");
+            Console.WriteLine("\n\t" + asterick);
+            Console.WriteLine("\tThis app will ask you a multiple choice question");
+            Console.WriteLine("\tAnswer by entering the assoiciated letter followed by the [ENTER] key");
+            Console.WriteLine("\tHope you enjoy the quiz");
+            Console.WriteLine("\tGoodLuck");
+            Console.WriteLine("\tPress any key to continue");
+            Console.WriteLine("\n\t" + asterick);
         }
     }
 }

@@ -17,7 +17,9 @@ namespace TriviaGameApp
         {
 
         }
-
+        /// <summary>
+        /// Read file into code and set QuestionUnit object properties
+        /// </summary>
         public void ReadQuestionFile()
         {
             try
@@ -35,21 +37,26 @@ namespace TriviaGameApp
                         questionBank[i].CorrectAnswer = readFile.ReadLine();
                         questionBank[i].Explination = readFile.ReadLine();
                     }
-                
                 }               
             }
             catch(Exception e)
             {
                 Console.WriteLine("Something went terribly wrong" + e.Message);
-                
             }         
         }
-
+        /// <summary>
+        /// Takes an integer to determine which QuestionUnit object to return
+        /// </summary>
+        /// <returns>objects question</returns>
         public string GetQuestion(int index)
         {
-            return "\t\t" + questionBank[index].Question;
+            return "\n\t\t" + questionBank[index].Question;
         }
 
+        /// <summary>
+        /// Takes an integer to determine which QuestionUnit object to return
+        /// </summary>
+        /// <returns>objects answers</returns>
         public string GetAnswers(int index)
         {
             string answers = "";
@@ -73,15 +80,21 @@ namespace TriviaGameApp
             }
             return answers;
         }
-
+        /// <summary>
+        /// Takes an integer to determine which QuestionUnit object to return
+        /// </summary>
+        /// <returns>objects correct answer</returns>
         public string CorrectAnswer(int index)
         {
             return questionBank[index].CorrectAnswer;
         }
-
+        /// <summary>
+        /// Takes an integer to determine which QuestionUnit object to return
+        /// </summary>
+        /// <returns>objects explination</returns>
         public string Explination(int index)
         {
-            return "\t\t" + questionBank[index].Explination;
+            return "\n\t\t" + questionBank[index].Explination;
         }
     }
 }
